@@ -13,11 +13,6 @@
   border-radius: 10px;
   margin-bottom: 20px;
   border-left: 4px solid #ff4e4e;
-  animation: typing 4s steps(18) infinite;
-}
-@keyframes typing {
-  from { letter-spacing: 0;}
-  to { letter-spacing: 10px;}
 }
 body {
   background: linear-gradient(135deg, #1a2980, #26d0ce);
@@ -235,3 +230,4 @@ body {
     align-items: flex-start;
   }
 }
+
