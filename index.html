@@ -5,187 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exam Routine - January</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        body {
-            background: linear-gradient(135deg, #1a2980, #26d0ce);
-            color: #333;
-            min-height: 100vh;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .container {
-            max-width: 1200px;
-            width: 100%;
-            margin: 0 auto;
-        }
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            color: white;
-        }
-        .header h1 {
-            font-size: 50px;
-            margin-bottom: 10px;
-            font-family: Arial, Helvetica, sans-serif;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-        .header p {
-            font-size: 18px;
-            opacity: 0.9;
-        }
-        .routine-container {
-            background-color: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 40px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-            overflow: hidden;
-        }
-        .routine-title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
-            font-family: Arial, Helvetica, sans-serif;
-            color: #1a2980;
-        }
-        .routine-title h2 {
-            font-size: 2rem;
-            border-bottom: 3px solid #26d0ce;
-            padding-bottom: 10px;
-        }
-        .routine-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        .routine-table thead {
-            background: linear-gradient(to right, #1a2980, #26d0ce);
-            color: white;
-        }
-        .routine-table th {
-            padding: 18px 15px;
-            text-align: left;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-radius: 10px;
-        }
-        .routine-table tbody tr {
-            border-bottom: 1px solid #e0e0e0;
-            transition: all 0.3s ease;
-        }
-        .routine-table tbody tr:hover {
-            background-color: #f0f9ff;
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-        .routine-table td {
-            padding: 20px 15px;
-            font-size: 1.1rem;
-        }
-        .exam-date {
-            font-weight: 600;
-            color: #1a2980;
-            min-width: 150px;
-        }
-        .day-month {
-            font-size: 1rem;
-            color: #666666;
-            display: block;
-            margin-top: 5px;
-        }
-        .exam-subject {
-            font-weight: 600;
-            color: #333;
-            font-size: 1.2rem;
-        }
-        .exam-time {
-            color: #0800ff;
-            font-weight: 600;
-            font-size: 1.1rem;
-        }
-        .exam-day {
-            color: #666;
-            font-weight: 500;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 40px;
-            color: rgb(0, 0, 0);
-            font-size: 1rem;
-            opacity: 0.9;
-        }
-        /* Responsive design */
-        @media (max-width: 992px) {
-            .routine-container {
-                padding: 30px 20px;
-            }
-            
-            .header h1 {
-                font-size: 2.2rem;
-            }
-            
-            .routine-title h2 {
-                font-size: 1.8rem;
-            }
-        }
-        @media (max-width: 768px) {
-            .routine-table {
-                display: block;
-                overflow-x: auto;
-            }
-            
-            .routine-table th,
-            .routine-table td {
-                padding: 15px 10px;
-                font-size: 1rem;
-            }
-            
-            .header h1 {
-                font-size: 1.8rem;
-            }
-            
-            .routine-title h2 {
-                font-size: 1.5rem;
-            }
-        }
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-            
-            .routine-container {
-                padding: 20px 15px;
-            }
-            
-            .header h1 {
-                font-size: 1.6rem;
-            }
-            
-            .routine-title h2 {
-                font-size: 1.3rem;
-            }
-            
-            .routine-table th,
-            .routine-table td {
-                padding: 12px 8px;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <div class="calendar-icon">
-            </div>
             <h1> 4CST - EXAM 2025</h1>
             <p>Department of Computer Science</p>
         </div>
@@ -193,6 +17,10 @@
         <div class="routine-container">
             <div class="routine-title">
                 <h2>Exam Schedule</h2>
+                <div class="controls">
+                    <div class="info-text" id="statusText">Showing all exams</div>
+                    <button class="toggle-btn" id="togglePastBtn">Hide Past Exams</button>
+                </div>
             </div>
             
             <table class="routine-table">
@@ -204,29 +32,21 @@
                         <th width="20%">Time</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="examTableBody">
                     <tr>
                         <td class="exam-date">5 January
                             <span class="day-month">2026</span>
                         </td>
                         <td class="exam-day">Monday</td>
-                        <td class="exam-subject">Web Design And Devlopment -1 </td>
+                        <td class="exam-subject">Web Design And Development -1</td>
                         <td class="exam-time">10:00 AM</td>
                     </tr>
-                    <tr class="exam-date">
+                    <tr>
                         <td class="exam-date">10 January
                             <span class="day-month">2026</span>
                         </td>
                         <td class="exam-day">Saturday</td>
                         <td class="exam-subject">Java Programming</td>
-                        <td class="exam-time">10:00 AM</td>
-                    </tr>
-                    <tr>
-                        <td class="exam-date">12 January
-                            <span class="day-month">2026</span>
-                        </td>
-                        <td class="exam-day">Monday</td>
-                        <td class="exam-subject">Environmental Studies</td>
                         <td class="exam-time">10:00 AM</td>
                     </tr>
                     <tr>
@@ -243,6 +63,14 @@
                         </td>
                         <td class="exam-day">Monday</td>
                         <td class="exam-subject">Data Structure</td>
+                        <td class="exam-time">10:00 AM</td>
+                    </tr>
+                    <tr>
+                        <td class="exam-date">24 January
+                            <span class="day-month">2026</span>
+                        </td>
+                        <td class="exam-day">Saturday</td>
+                        <td class="exam-subject">Environmental Studies</td>
                         <td class="exam-time">10:00 AM</td>
                     </tr>
                     <tr>
@@ -263,10 +91,89 @@
                     </tr>
                 </tbody>
             </table>
-        <div class="footer">
-            <p>© 2026 Faizul Islam Riyad. All rights reserved.</p>
+            <div class="footer">
+                <p>© 2026 Faizul Islam Riyad. All rights reserved.</p>
+            </div>
+        </div>
+        <br><br>
+        <div class="routine-container">
+            <div class="routine-title">
+                <h2>Practical  Schedule</h2>
+            </div>
+            <!-- <table class="routine-table">
+                <thead>
+                    <tr>
+                        <th width="20%">Date</th>
+                        <th width="15%">Day</th>
+                        <th width="45%">Subject</th>
+                        <th width="20%">Time</th>
+                    </tr>
+                </thead>
+                <tbody id="examTableBody">
+                    <tr>
+                        <td class="exam-date">5 January
+                            <span class="day-month">2026</span>
+                        </td>
+                        <td class="exam-day">Monday</td>
+                        <td class="exam-subject">Web Design And Development -1</td>
+                        <td class="exam-time">10:00 AM</td>
+                    </tr>
+                    <tr>
+                        <td class="exam-date">10 January
+                            <span class="day-month">2026</span>
+                        </td>
+                        <td class="exam-day">Saturday</td>
+                        <td class="exam-subject">Java Programming</td>
+                        <td class="exam-time">10:00 AM</td>
+                    </tr>
+                    <tr>
+                        <td class="exam-date">14 January
+                            <span class="day-month">2026</span>
+                        </td>
+                        <td class="exam-day">Wednesday</td>
+                        <td class="exam-subject">Computer Peripherals</td>
+                        <td class="exam-time">10:00 AM</td>
+                    </tr>
+                    <tr>
+                        <td class="exam-date">19 January
+                            <span class="day-month">2026</span>
+                        </td>
+                        <td class="exam-day">Monday</td>
+                        <td class="exam-subject">Data Structure</td>
+                        <td class="exam-time">10:00 AM</td>
+                    </tr>
+                    <tr>
+                        <td class="exam-date">24 January
+                            <span class="day-month">2026</span>
+                        </td>
+                        <td class="exam-day">Saturday</td>
+                        <td class="exam-subject">Environmental Studies</td>
+                        <td class="exam-time">10:00 AM</td>
+                    </tr>
+                    <tr>
+                        <td class="exam-date">27 January
+                            <span class="day-month">2026</span>
+                        </td>
+                        <td class="exam-day">Tuesday</td>
+                        <td class="exam-subject">Business Communication</td>
+                        <td class="exam-time">10:00 AM</td>
+                    </tr>
+                    <tr>
+                        <td class="exam-date">31 January
+                            <span class="day-month">2026</span>
+                        </td>
+                        <td class="exam-day">Saturday</td>
+                        <td class="exam-subject">Digital Electronics-2</td>
+                        <td class="exam-time">10:00 AM</td>
+                    </tr>
+                </tbody>
+            </table> -->
+            <div class="footer">
+                <marquee>COMING SOON</marquee>
+                <p>© 2026 Faizul Islam Riyad. All rights reserved.</p>
+            </div>
         </div>
     </div>
+    <script src="script.js"></script>
 </body>
 </html>
-
